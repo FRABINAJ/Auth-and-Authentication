@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <a href="/"><button>Home</button></a>
+    <center>
+        <h1>Signin</h1>
+        <br><br><br>
+        <form action="" method="post">
+            {% csrf_token %}
+            <label>Enter fullname: </label>
+            <input type="text" name="name" id="name">
+            <span id="name-error"></span>
+            <br><br>
+            <label>Email: </label>
+            <input type="email" name="email" id="email">
+            <span id="email-error"></span>
+            <br><br>
+            <label>Password: </label>
+            <input type="password" name="password" id="password">
+            <span id="password-error"></span>
+            <br><br>
+            <button type="submit">Signup</button>
+            <button type="reset">Reset</button>
+            <p>Alreday have an account <a href="/signin/">signin</a></p>
+        </form>
+    </center>
+
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <a href="/"><button>Home</button></a>
+    <center>
+        <h1>Signin</h1>
+        <br><br><br>
+        <form action="" method="post">
+            {% csrf_token %}
+            <label>Enter fullname: </label>
+            <input type="text" name="name" id="name">
+            <span id="name-error"></span>
+            <br><br>
+            <label>Password: </label>
+            <input type="password" name="password" id="password">
+            <span id="password-error"></span>
+            <br><br>
+            {% if login_error %}
+            <span style="color: red;" id="login_error">{{ login_error }}</span>
+            <script>
+                setTimeout(function () {
+                    var login_error = document.getElementById("login_error");
+                    login_error.style.display = "none";
+                }, 3000)
+            </script>
+            {% endif %}
+            <br>
+            <button type="submit">Signin</button>
+            <button type="reset">Reset</button>
+            <p>Don't have an account <a href="/signup/">signup</a></p>
+        </form>
+    </center>
+</body>
+
+</html>
