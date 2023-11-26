@@ -1,7 +1,5 @@
 const nameValue = document.getElementById("name-value");
     const nameerror = document.getElementById("name-error");
-    const emailid = document.getElementById("emailid");
-    const emailerror = document.getElementById("email-error");
     const passwordid = document.getElementById("passwordid");
     const pwderror = document.getElementById("pwd-error");
 
@@ -30,28 +28,6 @@ const nameValue = document.getElementById("name-value");
 
     nameValue.addEventListener("keyup", validateName);
     nameValue.addEventListener("blur", validateName);
-
-
-    //      VALIDATE E-MAIL]
-
-    function validateEmail() {
-        const email = emailid.value;
-        if (email.length == 0) {
-            emailerror.textContent = `Email is required`;
-            btn.disabled = true;
-            return false;
-        }
-        if (!email.match(/^[A-Za-z0-9\._\-]+[@][A-Za-z]+[\.][a-z]{2,4}$/)) {
-            emailerror.textContent = `Invalid email`;
-            btn.disabled = true;
-            return false;
-        }
-        emailerror.innerHTML = `<i class='fas fa-check-circle icon'></i>`;
-        btn.disabled = false;
-        return true;
-    }
-    emailid.addEventListener("keyup", validateEmail);
-    emailid.addEventListener("blur", validateEmail);
 
 
     //      VALIDATE PASSWORD

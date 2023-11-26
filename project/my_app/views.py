@@ -1,49 +1,62 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
 from django.contrib.auth.models import User
-from django.db import IntegrityError
 from django.contrib.auth import authenticate, login, logout
-
-# Create your views here.
+from django.http import HttpResponse
+from django.db import IntegrityError
+from django.contrib.auth.decorators import login_required
 
 
 def index(request):
     return render(request, "index.html")
 
 
-def signup(request):
-    user_already_exist = None
-    if request.method == "POST":
-        name = request.POST["name"]
-        email = request.POST["email"]
-        password = request.POST["password"]
-
-        try:
-            myuser = User.objects.create_user(name, email, password)
-            myuser.save()
-            return redirect("signin")
-        except IntegrityError:
-            user_already_exist = "User already exist"
-
-    return render(request, "signup.html", {"user_already_exist": user_already_exist})
-
-
 def signin(request):
-    login_error = None
+    login_error_message = None
     if request.method == "POST":
-        name = request.POST["name"]
+        username = request.POST["username"]
         password = request.POST["password"]
 
-        myuser = authenticate(username=name, password=password)
+        myuser = authenticate(username=username, password=password)
+
         if myuser is not None:
             login(request, myuser)
             return render(request, "welcome.html", {"myuser": myuser})
         else:
-            login_error = "Login error"
+            # return redirect("signup")
+            login_error_message = "Wrong Account"
 
-    return render(request, "signin.html", {"login_error": login_error})
+    return render(request, "signin.html", {"login_error_message": login_error_message})
+
+
+# def signup(request):
+#     if request.method == "POST":
+#         username = request.POST["username"]
+#         email = request.POST["email"]
+#         password = request.POST["password"]
+
+#         myuser = User.objects.create_user(username, email, password)
+#         myuser.save()
+
+
+#         return redirect("signin")
+#     return render(request, "signup.html")
+def signup(request):
+    error_message = None
+    if request.method == "POST":
+        username = request.POST["username"]
+        email = request.POST["email"]
+        password = request.POST["password"]
+
+        try:
+            myuser = User.objects.create_user(username, email, password)
+            myuser.save()
+            return redirect("signin")
+        except IntegrityError:
+            error_message = "User already exists"
+
+    return render(request, "signup.html", {"error_message": error_message})
 
 
 def signout(request):
     logout(request)
-    return redirect("sihnin")
+    return redirect("signin")

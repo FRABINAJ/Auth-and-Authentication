@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,105 +6,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="{% static 'login.css' %}">
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+
 </head>
 
 <body>
-
-    <a href="/"><button>Home</button></a>
+    <a href="/"><button class="btn btn-warning mt-2 ms-2" type="submit">Home</button></a>
+    <br><br>
     <center>
         <h1>Signin</h1>
-        <br><br><br>
+        <br><br>
         <form action="" method="post">
             {% csrf_token %}
-            <label for="">Username</label>
-            <input type="text" name="name" id="name" placeholder="Enter full name" required>
-            <span id="name-error" class="error"></span>
-            <br><br>
-            <label>Password: </label>
-            <input type="password" name="password" id="password" required>
-            <span id="password-error"></span>
-            <br><br>
-            {% if login_error %}
-            <span style="color: red;" id="login_error">{{login_error}}</span>
+            <span id="name-error" class="text-danger"></span>
+            <input class="form-control" type="text" name="username" id="name-value" placeholder="Enter username"
+                required>
+            <br>
+            <span id="pwd-error" class="text-danger"></span>
+            <input class="form-control" type="password" name="password" id="passwordid" placeholder="Enter password"
+                required>
+            <br>
+
+            {% if login_error_message %}
+            <span class="text-danger" id="login_error_message">{{ login_error_message }}</span>
             <script>
                 setTimeout(function () {
-                    var login_error = document.getElementById("login_error")
-                    login_error.style.display = "none";
+                    var login_error_message = document.getElementById("login_error_message");
+                    login_error_message.style.display = "none";
                 }, 3000)
             </script>
             {% endif %}
-            <br>
-            <button type="submit" id="btn-id">Signin</button>
-            <button type="reset">Reset</button>
-            <p>Don't have an account <a href="/signup/">signup</a></p>
+            <p style="text-align: end;">Don't have an account? <a class="text-primary" style="text-decoration: none;"
+                    href="/signup/">signup</a></p>
+            <button class="btn btn-primary" type="submit" style="margin-left: 100px;">Signin</button>
+            <button class="btn btn-danger ms-2" type="reset">Reset</button>
+
+
         </form>
+        <br><br>
+
     </center>
 </body>
-<script>
-    nameValue = document.getElementById("name")
-    emailValue = document.getElementById("email")
-    passwordValue = document.getElementById("password")
-
-    nameError = document.getElementById("name-error")
-    emailError = document.getElementById("email-error")
-    passwordError = document.getElementById("password-error")
-
-    btn = document.getElementById("btn-id")
-
-    // NAME VALIDATION
-
-    function validateName() {
-        const name = nameValue.value;
-
-        if (name.length == 0) {
-            nameError.textContent = "Name is required";
-            btn.disabled = true;
-            return false;
-        }
-
-        if (!name.match(/^[A-Za-z]{3,}\s{1,}[a-zA-Z]+$/))// \s means blank space
-        {
-            nameError.textContent = `Enter full name`;
-            btn.disabled = true;
-            return false;
-        }
-
-        nameError.innerHTML = `<i class='fas fa-check-circle icon'></i>`;
-        btn.disabled = false;
-        return true;
-    }
-
-    nameValue.addEventListener("keyup", validateName);
-    nameValue.addEventListener("blur", validateName);
-
-    // Password Error
-    function validatePassword() {
-        const password = passwordValue.value;
-        if (password == 0) {
-            passwordError.textContent = "Password is required"
-            btn.disabled = true
-            return false
-        }
-        if (!password.match(/^[A-Za-z1-9]{6,}$/)) {
-            passwordError.textContent = "Password"
-            btn.disabled = true
-            return false
-        }
-        passwordError.innerHTML = "Success"
-        btn.disabled = false
-        return true
-    }
-
-    passwordValue.addEventListener("keyup", validatePassword);
-    passwordValue.addEventListener("blur", validatePassword);
-
-</script>
-
-<script>
-
-
-
-
-</script>
+<script src="{% static 'signin.js' %}"></script>
 
 </html>
