@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,14 +6,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="{% static 'index.css' %}">
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+
 </head>
 
 <body>
-    <center>
-        <h1>Home page</h1>
+    <center><br><br>
+        <h1>Sample signup</h1>
+        <br><br><br>
+        <div>
+            <a href="signup/" style="margin-right: 20px;"><button type="submit"
+                    class="btn btn-success">Signup</button></a>
+            <a href="signin/"><button type="submit" class="btn btn-primary">Signin</button></a>
+        </div>
+
     </center>
-    <a href="signup/"><button type="submit">Signup</button></a>
-    <a href="signin/"><button type="submit">Signin</button></a>
 </body>
 
 </html>
